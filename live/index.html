@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Avions.brussels - Live</title>
+
+        <!-- favicon and browser features -->
+        <link rel="apple-touch-icon" sizes="180x180" href="style/apple-touch-icon.png">
+        <link rel="mask-icon" href="style/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="icon" type="image/png" href="style/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="style/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="style/manifest.json">
+        <link rel="shortcut icon" href="style/favicon.ico">
+        <meta name='apple-mobile-web-app-capable' content='yes'>
+        <meta name='mobile-web-app-capable' content='yes'>
+        <meta name="msapplication-config" content="style/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <script type="text/javascript">
+
+        // Configuration of MQTT Wall
+        var config = {
+
+            // MQTT server to connect (must support websocket protocol)
+            server: {
+                uri: "wss://m23.cloudmqtt.com:35721/",
+                username: "avions",
+                password: "YXZpb25z"
+            },
+            // Default subscribed topic 
+            defaultTopic: "/avions/#",
+
+            // Show counter for each topic
+            showCounter: true,
+
+            // New message will be placed in alphabetical order
+            alphabeticalSort: false,
+
+            // QoS of subscription (0 .. 2)
+            qos: 0
+        };
+
+        </script>
+    </head>
+    <body>
+        <!-- Content -->
+        <div id="frame">
+
+            <div id="header">
+                <div id="topic-box">
+                    <span id="brand"><a href="/">Avions.brussels</a> - Live </span>
+                    <span id="bots">Bots: <input type="text" id="topic" value="" title="Bots to subscribe" ></span>
+                    <span id="params">BadBoys - Alt <= <input type="text" id="badboys" value="5000" title="Badboys Altitude" ></span>
+                </div>
+            </div>
+
+            <div id="toast"></div>
+
+            <section class="messages"></section>
+
+            <div id="footer">
+                <p class="status">
+                    Client <code id="status-client" title="Client ID">?</code> is 
+                    <code id="status-state" class="connecting"><em>&bull;</em> <span>connecting...</span></code> to 
+                    <em>A deviation of</em> MQTT Wall 0.4.0 (<a href="https://github.com/bastlirna/mqtt-wall">github</a>).
+                </p>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+        <script type="text/javascript" src="wall.js"></script>
+    </body>
+</html>

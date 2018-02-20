@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Avions.Brussels - Analytics</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- external libs from cdnjs -->
+        <!-- bootstrap from cdnjs -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.3.0/pivot.min.css" />
+
+        <style>
+            body {font-family: Verdana;}
+            #csv {width: 200px;}
+            .main {padding-top: 55px;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }        
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+        </style>
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Avions.Brussels</a> - Analystics
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar">
+            <li><a href="/">Admin</a></li>
+            <li><a href="About.html">About</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <select id="csv"  class="form-control" placeholder="Choose a dataset...">
+            <option>Choose Dataset</option>
+            <option value="http://elasticsearch.irisnet.be:9200/statistics/stat/_search">statistics</option>
+          </select>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 main">
+          <p><span id="doc"></span></p>
+          <div id="output" style="margin: 10px;"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- scripts libs from cdnjs -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.3.0/pivot.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.3.0/d3_renderers.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.3.0/c3_renderers.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.3.0/export_renderers.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var renderers = $.extend(
+            $.pivotUtilities.renderers, 
+            $.pivotUtilities.c3_renderers, 
+            $.pivotUtilities.d3_renderers, 
+            $.pivotUtilities.export_renderers
+            );
+        var cfg = {
+          cols: [], 
+          rows: [],
+          vals: [],
+          hiddenAttributes: [""], 
+          renderers: renderers 
+          }; 
+        var url = "http://elasticsearch.irisnet.be:9200/statistics/stat/_search";                  
+        var body = {"size": 10000,"from": 0,"query": {"regexp": {"Key":".*" }}}; 
+                         
+        $("#csv").chosen();
+        $("#csv").bind("change", function(event){
+            $("#output").empty().text("Loading...")
+            $.ajax({
+              type: "POST",    
+              url: url,
+              data: body, 
+              dataType : "json",
+              cache: false,
+              success : function(xdata) { 
+                    $("#doc").empty().append(
+                        $("<a>",{target:"_blank", href: val }).html(val+" Raw &raquo;")
+                      );
+                      $("#output").pivotUI(xdata, cfg, true);
+                },
+              error : function(jqXHR, textStatus, errorThrown){
+                alert("It seems that we cannot retrieve the data !! >>Error: "+textStatus);
+              }
+            }); 
+        });
+      });
+    </script>
+  </body>
+</html>
