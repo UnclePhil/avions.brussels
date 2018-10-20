@@ -189,7 +189,7 @@ body {
   cursor: pointer;
 }
 #header #topic:focus {
-  background-color: #5d49cf;
+  background-color: #efefef;
   cursor: auto;
 }
 #header #topic-box {
@@ -208,7 +208,7 @@ body {
   cursor: pointer;
 }
 #header #badboys:focus {
-  background-color: #5d49cf;
+  background-color: #efefef;
   cursor: auto;
 }
 #header #badboys-box {
