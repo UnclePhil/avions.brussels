@@ -140,19 +140,26 @@ body {
   margin: 0;
   padding: 0;
 }
+#frame{ 
+  flex-direction: column ;
+}
 #header {
   padding: .5em;
   width: 100%;
   background-color: #4b35c9;
   color: #ffffff;
-  position: fixed;
+  /*position: fixed;*/
   box-sizing: border-box;
   z-index: 1;
   -webkit-box-shadow: 0px 0px 5px 0px #4b35c9;
   -moz-box-shadow: 0px 0px 5px 0px #4b35c9;
   box-shadow: 0px 0px 5px 0px #4b35c9;
+  flex-direction: row ;
+  flex-wrap: wrap;
+  
 }
 #header #brand {
+  flex:auto;
   font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
   color: #ffffff;
   padding: 2px;
@@ -167,6 +174,7 @@ body {
   color: #ffffff;
 }
 #header #topic {
+  flex:auto;
   font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
   color: #ffffff;
   padding: 2px;
@@ -187,6 +195,7 @@ body {
   box-sizing: border-box;
 }
 #header #badboys {
+  flex:auto;
   font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
   color: #ffffff;
   padding: 2px;
@@ -262,23 +271,28 @@ Messages code:
 </section>
 */
 .messages {
-  padding-top: 2.4em;
+  /*padding-top: 2.4em;*/
+  flex-direction: column ;
+  overflow-wrap: break-word;
+  overflow: auto;
 }
 .messages .message {
-  text-align: right;
+  text-align: left;
   border-bottom: solid #4b35c9 1px;
   padding: .3rem;
+  flex:auto;
+  flex-direction: column ;
 }
 .messages .message:before,
 .messages .message:after {
   content: " ";
-  display: table;
-}
+    display: table;
+  }
 .messages .message:after {
   clear: both;
 }
 .messages .message header {
-  float: left;
+  /*float: left;*/
   padding: .1rem;
   color: #333;
   font-size: 1.1rem;
@@ -289,7 +303,7 @@ Messages code:
   margin-right: .5rem;
 }
 .messages .message header .mark {
-  display: inline-block;
+  /*display: inline-block;*/
   background-color: #ccc;
   color: #666;
   font-size: 0.70rem;
@@ -321,6 +335,9 @@ Messages code:
   border-radius: .3rem;
   color: #333;
   background-color: #fff;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 .messages .message p.sys {
   font-style: italic;
