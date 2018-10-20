@@ -141,9 +141,11 @@ body {
   padding: 0;
 }
 #frame{ 
+  display: flex;
   flex-direction: column ;
 }
 #header {
+  display: flex;
   padding: .5em;
   width: 100%;
   background-color: #4b35c9;
@@ -165,22 +167,22 @@ body {
   padding: 2px;
   display: inline-block;
   border: none;
-  width: 220px;
+  width: 250px;
   font-size: 100%;
+  font-weight: bold;
   background: none;
   box-sizing: border-box;
 }
 #header #brand a {
   color: #ffffff;
 }
-#header #topic {
+#header #bots {
   flex:auto;
   font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
   color: #ffffff;
   padding: 2px;
   display: inline-block;
   border: none;
-  width: 200px;
   font-size: 100%;
   background: none;
   box-sizing: border-box;
@@ -194,14 +196,12 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-#header #badboys {
-  flex:auto;
-  font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
+#header #params {
+    font-family: Consolas, 'Lucida Console', 'Monaco CE', fixed, monospace;
   color: #ffffff;
   padding: 2px;
   display: inline-block;
   border: none;
-  width: 200px%;
   font-size: 100%;
   background: none;
   box-sizing: border-box;
@@ -272,6 +272,7 @@ Messages code:
 */
 .messages {
   /*padding-top: 2.4em;*/
+  display: flex;
   flex-direction: column ;
   overflow-wrap: break-word;
   overflow: auto;
@@ -280,6 +281,7 @@ Messages code:
   text-align: left;
   border-bottom: solid #4b35c9 1px;
   padding: .3rem;
+  display: flex;
   flex:auto;
   flex-direction: column ;
 }
